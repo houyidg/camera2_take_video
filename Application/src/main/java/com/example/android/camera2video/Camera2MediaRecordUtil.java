@@ -19,6 +19,7 @@ public class Camera2MediaRecordUtil {
     private static final int SENSOR_ORIENTATION_INVERSE_DEGREES = 270;
     private static final SparseIntArray DEFAULT_ORIENTATIONS = new SparseIntArray();
     private static final SparseIntArray INVERSE_ORIENTATIONS = new SparseIntArray();
+    private static String appID = "com.example.android.camera2video";
 
     static {
         DEFAULT_ORIENTATIONS.append(Surface.ROTATION_0, 90);
@@ -97,7 +98,8 @@ public class Camera2MediaRecordUtil {
         mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mMediaRecorder.setVideoSource(MediaRecorder.VideoSource.SURFACE);
         mMediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
-        mMediaRecorder.setOutputFile(getVideoFilePath(context));
+//        mMediaRecorder.setOutputFile(getVideoFilePath(context));
+        mMediaRecorder.setOutputFile(getMp4File().getAbsolutePath());
 
         mMediaRecorder.setVideoEncodingBitRate(10000000);
         mMediaRecorder.setVideoFrameRate(30);
@@ -121,11 +123,17 @@ public class Camera2MediaRecordUtil {
         return Environment.getDataDirectory().getAbsolutePath();
     }
 
+    public static String getAppPath() {
+        return getDataPath() + File.separator + "data" + File.separator + appID;
+    }
+
     private File getMp4File() {
-        String basePath = getDataPath();
+        String basePath = getAppPath();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd_hh-mm-ss");
         String format = simpleDateFormat.format(new Date());
-        return new File(basePath, format + ".mp4");
+        File file = new File(basePath, format + ".mp4");
+        Log.e("getMp4File", "getMp4File: file" + file.getAbsolutePath());
+        return file;
     }
 
     private String getVideoFilePath(Context context) {
