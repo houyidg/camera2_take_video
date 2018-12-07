@@ -68,8 +68,6 @@ public class Camera2VideoFragment extends Fragment
         implements View.OnClickListener, FragmentCompat.OnRequestPermissionsResultCallback {
 
 
-
-
     private static final String TAG = "Camera2VideoFragment2";
     private static final int REQUEST_VIDEO_PERMISSIONS = 1;
     private static final String FRAGMENT_DIALOG = "dialog";
@@ -321,28 +319,23 @@ public class Camera2VideoFragment extends Fragment
             if (null == mCameraDevice || !mTextureView.isAvailable() || null == mPreviewSize) {
                 return;
             }
+
             closePreviewSession();
 
             try {
+                mPreviewBuilder = mCameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_RECORD);
                 camera2MediaRecordUtil.setUpMediaRecorder();
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
             List<Surface> surfaces = new ArrayList<>();
             SurfaceTexture texture = mTextureView.getSurfaceTexture();
             texture.setDefaultBufferSize(mPreviewSize.getWidth(), mPreviewSize.getHeight());
-            try {
-                mPreviewBuilder = mCameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_RECORD);
-            } catch (CameraAccessException e) {
-                e.printStackTrace();
-            }
-
             // Set up Surface for the camera preview
             Surface previewSurface = new Surface(texture);
             surfaces.add(previewSurface);
             mPreviewBuilder.addTarget(previewSurface);
-
 
             // Set up Surface for the MediaRecorder
             Surface recorderSurface = camera2MediaRecordUtil.getmMediaRecorder().getSurface();
@@ -617,12 +610,7 @@ public class Camera2VideoFragment extends Fragment
                         public void run() {
                             // UI
                             mButtonVideo.setText(R.string.stop);
-                            camera2MediaRecordUtil.setmIsRecordingVideo(true);
-//                            mIsRecordingVideo = true;
-
-                            // Start recording
-                            camera2MediaRecordUtil.getmMediaRecorder().start();
-//                            mMediaRecorder.start();
+                            camera2MediaRecordUtil.startRecord();
                         }
                     });
                 }

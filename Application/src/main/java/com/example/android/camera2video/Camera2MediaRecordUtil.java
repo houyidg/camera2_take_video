@@ -157,4 +157,11 @@ public class Camera2MediaRecordUtil {
     public void setmMediaRecorder(MediaRecorder mMediaRecorder) {
         this.mMediaRecorder = mMediaRecorder;
     }
+
+    public void startRecord() {
+        if (mMediaRecorder != null) {
+            mMediaRecorder.start();
+            mIsRecordingVideo = true;
+        }
+    }
 }
