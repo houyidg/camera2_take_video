@@ -6,6 +6,7 @@ This sample shows how to record video using the new Camera2 API in Android Lolli
 
 Record Video engine:
 ------------
-1.MediaRecord
-2.FFmpeg
+1. MediaRecord
+
+2. FFmpeg
 

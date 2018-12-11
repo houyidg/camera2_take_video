@@ -270,7 +270,7 @@ public class FFmpegRecordUtils implements View.OnClickListener, FfmpegHelper.OnP
         public void run() {
             List<String> filters = new ArrayList<>();
             // Transpose
-            String transpose = null;// "transpose=1";
+            String transpose ="transpose=1";
             String hflip = null;//"hflip";
             String vflip = null;//"vflip";
 
