@@ -48,11 +48,11 @@ public class FfmpegHelper implements IRecordHelper {
     }
 
     @Override
-    public CaptureRequest.Builder setUpParams(List<Surface> surfaces, CameraDevice mCameraDevice, Handler mBackgroundHandler){
+    public CaptureRequest.Builder setUpParams(List<Surface> surfaces, CameraDevice mCameraDevice, Handler mBackgroundHandler) {
         if (imageReader == null) {
             imageReader = ImageReader.newInstance(mVideoSize.getWidth(), mVideoSize.getHeight(), ImageFormat.YUV_420_888, 1);
-            imageReader.setOnImageAvailableListener(backAvailableListener, mBackgroundHandler);
         }
+        imageReader.setOnImageAvailableListener(backAvailableListener, mBackgroundHandler);
         fFmpegRecordUtils.setmVideoSize(mVideoSize);
         fFmpegRecordUtils.setRotation(1);
         CaptureRequest.Builder mRequest = null;
